@@ -9,8 +9,9 @@ var OpenXCScout = module.exports = function() {
 util.inherits(OpenXCScout, Scout);
 
 OpenXCScout.prototype.init = function(next) {
+  var self = this;
   var sim = new SimIface(function() {
-    this.discover(OpenXCDriver, sim);
+    self.discover(OpenXCDriver, sim);
   });
    
   next();
