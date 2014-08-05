@@ -1,0 +1,19 @@
+{
+  "name": "zetta-openxc",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdobson/zetta-openxc.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdobson/zetta-openxc/issues"
+  },
+  "homepage": "https://github.com/mdobson/zetta-openxc"
+}

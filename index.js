@@ -1,0 +1,17 @@
+var Scout = require('zetta').Scout;
+var util = require('util');
+var OpenXCDriver = require('./openxc_driver');
+var SimIface = require('./simulator_interface');
+
+var OpenXCScout = module.exports = function() {
+  Scout.call(this);
+};
+util.inherits(OpenXCScout, Scout);
+
+OpenXCScout.prototype.init = function(next) {
+  var sim = new SimIface(function() {
+    this.discover(OpenXCDriver, sim);
+  });
+   
+  next();
+};
