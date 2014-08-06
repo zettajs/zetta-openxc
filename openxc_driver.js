@@ -5,7 +5,9 @@ var OpenXC = module.exports = function(emitter) {
   Device.call(this);
   this.emitter = emitter;
   this.emitter.on('data', this.handleDataEvent);
-  this.steeringWheel = 0;
+  this.wheel = 0;
+  this.acceleration = 0;
+  this.brake = false;
 };
 util.inherits(OpenXC, Device);
 
@@ -14,11 +16,17 @@ OpenXC.prototype.init = function(config) {
     .name('OpenXC')
     .type('vehicle')
     .state('running')
-    .monitor('steeringWheel');
+    .monitor('wheel')
+    .monitor('acceleration')
+    .monitor('brake');
 };
 
 OpenXC.prototype.handleDataEvent = function(data) {
   if(data.name === 'steering_wheel_angle') {
-    this.steeringWheel = data.value;
+    this.wheel = data.value;
+  } else if (data.name === 'accelerator_pedal_position') {
+    this.acceleration = data.value;
+  } else if (data.name === 'brake_pedal_position') {
+    this.brake = data.value;
   }
 };
