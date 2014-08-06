@@ -3,8 +3,11 @@ var util = require('util');
 
 var OpenXC = module.exports = function(emitter) {
   Device.call(this);
-  this.emitter = emitter;
-  this.emitter.on('data', this.handleDataEvent);
+  this._emitter = emitter;
+  var self = this;
+  this._emitter.on('data', function(data) {
+    self.handleDataEvent(data);
+  });
   this.wheel = 0;
   this.acceleration = 0;
   this.brake = false;
@@ -26,7 +29,7 @@ OpenXC.prototype.handleDataEvent = function(data) {
     this.wheel = data.value;
   } else if (data.name === 'accelerator_pedal_position') {
     this.acceleration = data.value;
-  } else if (data.name === 'brake_pedal_position') {
+  } else if (data.name === 'brake_pedal_status') {
     this.brake = data.value;
   }
 };
