@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mdobson/zetta-openxc/issues"
   },
-  "homepage": "https://github.com/mdobson/zetta-openxc"
+  "homepage": "https://github.com/mdobson/zetta-openxc",
+  "dependencies": {
+    "zetta-hue-driver": "0.0.10"
+  }
 }
