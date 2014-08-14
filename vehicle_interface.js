@@ -8,30 +8,39 @@ var OpenXCVI = module.exports = function(cb) {
   this.on = this.emitter.on.bind(this);
   this.sp = new SerialPort('/dev/tty.OpenXC-VI-F727-SPP', {baudrate: 230400});
 
-  var cur = [];
-
+  var fragment = [];
   this.sp.open(function(e) {
     if(e) {
       console.log('Error:'+e);
     } else {
       self.sp.on('data', function(data) {
-        var end = data.slice(-1);
-        if(end.toString('HEX') !== '0a' || end.toString('HEX') !== '0d') {
-          cur.push(data);
-        } else {
-          if(cur.length !== 0) {
-            cur.push(data);
-            var fullMessage = Buffer.concat(cur);
-            self.emit('data', JSON.parse(fullMessage.slice(0, -2).toString('utf8')));
-            cur = [];
+        var packet = data.toString().split('\r\n');
+        var eventObj = null;
+        packet.forEach(function(entry) {
+          var openFound = entry.indexOf('{');
+          var closedFound = entry.indexOf('}');
+          if(!fragment.length) {
+            if(openFound !== -1 && closedFound !== -1){
+              eventObj = JSON.parse(entry);
+              self.emit('data', eventObj);
+            } else {
+              fragment.push(entry);
+            }
           } else {
-            self.emit('data', JSON.parse(data.toString()));
-            cur = [];
+            if(closedFound !== -1) {
+              fragment.push(entry);
+              var eventStr = fragment.join('');
+              eventObj = JSON.parse(eventStr);
+              self.emit('data', eventObj);
+              fragment = [];
+            } else {
+              fragment.push(entry);
+            }
           }
-        }
+        });
       });
-      cb();
     }
   });
 };
+
 
