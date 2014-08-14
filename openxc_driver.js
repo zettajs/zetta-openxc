@@ -25,7 +25,6 @@ OpenXC.prototype.init = function(config) {
 };
 
 OpenXC.prototype.handleDataEvent = function(data) {
-  console.log(data.name);
   if(data.name === 'steering_wheel_angle') {
     this.wheel = data.value;
   } else if (data.name === 'accelerator_pedal_position') {
