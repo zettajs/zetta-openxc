@@ -40,6 +40,7 @@ var OpenXCVI = module.exports = function(cb) {
         });
       });
     }
+    cb();
   });
 };
 
