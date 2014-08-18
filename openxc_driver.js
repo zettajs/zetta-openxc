@@ -11,6 +11,8 @@ var OpenXC = module.exports = function(emitter) {
   this.wheel = 0;
   this.acceleration = 0;
   this.brake = false;
+  this.parking = false;
+  this.door = false;
 };
 util.inherits(OpenXC, Device);
 
@@ -21,7 +23,10 @@ OpenXC.prototype.init = function(config) {
     .state('running')
     .monitor('wheel')
     .monitor('acceleration')
+    .monitor('parking')
+    .monitor('door')
     .monitor('brake');
+
 };
 
 OpenXC.prototype.handleDataEvent = function(data) {
@@ -31,5 +36,9 @@ OpenXC.prototype.handleDataEvent = function(data) {
     this.acceleration = data.value;
   } else if (data.name === 'brake_pedal_status') {
     this.brake = data.value;
+  } else if (data.name === 'parking_brake_status') {
+    this.parking = data.value;
+  } else if (data.name === 'door_status' && data.value === 'driver') {
+    this.door = data.event;
   }
 };

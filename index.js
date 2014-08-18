@@ -11,7 +11,7 @@ util.inherits(OpenXCScout, Scout);
 
 OpenXCScout.prototype.init = function(next) {
   var self = this;
-  var sim = new VehicleIface(function() {
+  var sim = new SimIface(function() {
     self.discover(OpenXCDriver, sim);
   });
    
