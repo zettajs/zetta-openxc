@@ -2,8 +2,7 @@ var net = require('net');
 var EventEmitter = require('events').EventEmitter;
 
 var OpenXC = module.exports = function(cb) {
-  var client = net.connect({port: 50001}, cb);
-
+  var client = net.connect({port: 50001, host: '192.168.1.107'}, cb);
 
   this.emitter = new EventEmitter();
   this.on = this.emitter.on.bind(this);
