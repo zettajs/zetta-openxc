@@ -20,7 +20,11 @@ var OpenXC = module.exports = function(cb) {
       var slice = d.slice(openIdx, closeIdx + 1);
       openIdx = d.indexOf('{', openIdx + 1);
       closeIdx = d.indexOf('}', closeIdx + 1);
-      self.emit('data', JSON.parse(slice));
+      try {
+        self.emit('data', JSON.parse(slice));
+      } catch (err) {
+        console.error('vi parse error:', err);
+      }
     }
   });
 };

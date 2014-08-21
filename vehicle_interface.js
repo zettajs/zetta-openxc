@@ -21,8 +21,13 @@ var OpenXCVI = module.exports = function(cb) {
           var closedFound = entry.indexOf('}');
           if(!fragment.length) {
             if(openFound !== -1 && closedFound !== -1){
-              eventObj = JSON.parse(entry);
-              self.emit('data', eventObj);
+              try {
+                eventObj = JSON.parse(entry);
+                self.emit('data', eventObj);
+              } catch (err) {
+                console.error('vi parse: error', err);
+                return;
+              }
             } else {
               fragment.push(entry);
             }
@@ -30,8 +35,12 @@ var OpenXCVI = module.exports = function(cb) {
             if(closedFound !== -1) {
               fragment.push(entry);
               var eventStr = fragment.join('');
-              eventObj = JSON.parse(eventStr);
-              self.emit('data', eventObj);
+              try {
+                eventObj = JSON.parse(eventStr);
+                self.emit('data', eventObj);
+              } catch(err) {
+                console.error('vi parse error:', err);
+              }
               fragment = [];
             } else {
               fragment.push(entry);
