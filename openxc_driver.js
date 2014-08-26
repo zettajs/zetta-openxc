@@ -13,6 +13,7 @@ var OpenXC = module.exports = function(emitter) {
   this.brake = false;
   this.parking = false;
   this.door = false;
+  this.highbeam = false;
 };
 util.inherits(OpenXC, Device);
 
@@ -25,6 +26,7 @@ OpenXC.prototype.init = function(config) {
     .monitor('acceleration')
     .monitor('parking')
     .monitor('door')
+    .monitor('highbeam')
     .monitor('brake');
 
 };
@@ -40,5 +42,7 @@ OpenXC.prototype.handleDataEvent = function(data) {
     this.parking = data.value;
   } else if (data.name === 'door_status' && data.value === 'driver') {
     this.door = data.event;
+  } else if (data.name === 'high_beam_status') {
+    this.highbeam = data.value;
   }
 };

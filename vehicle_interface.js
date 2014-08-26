@@ -6,7 +6,7 @@ var OpenXCVI = module.exports = function(cb) {
   this.emitter = new EventEmitter();
   this.emit = this.emitter.emit.bind(this);
   this.on = this.emitter.on.bind(this);
-  this.sp = new SerialPort('/dev/tty.OpenXC-VI-F727-SPP', {baudrate: 230400});
+  this.sp = new SerialPort('/dev/tty.OpenXC-VI-0A53-SPP', {baudrate: 230400});
 
   var fragment = [];
   this.sp.open(function(e) {
@@ -14,8 +14,9 @@ var OpenXCVI = module.exports = function(cb) {
       console.log('Error:'+e);
     } else {
       self.sp.on('data', function(data) {
-        var packet = data.toString().split('\r\n');
+        var packet = data.toString().split('\0');
         var eventObj = null;
+//        console.log(data.toString());
         packet.forEach(function(entry) {
           var openFound = entry.indexOf('{');
           var closedFound = entry.indexOf('}');
