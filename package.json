@@ -18,8 +18,9 @@
   "homepage": "https://github.com/mdobson/zetta-openxc",
   "dependencies": {
     "zetta-hue-driver": "0.0.10",
-    "zetta-ardrone-driver": "0.2.0",
     "throttle-event": "0.0.1",
-    "zetta": "^0.6.0"
+    "zetta": "^0.6.0",
+    "zetta-ardrone-driver": "0.4.0",
+    "throttle-event": "0.0.1"
   }
 }
