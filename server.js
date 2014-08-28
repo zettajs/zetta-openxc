@@ -7,6 +7,6 @@ var Drone = require('zetta-ardrone-driver');
 zetta()
   .use(openxc)
   .use(Hue)
-  .use(Drone)
+//  .use(Drone)
   .load(app)
   .listen(1337);

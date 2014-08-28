@@ -56,7 +56,7 @@ module.exports = function(server) {
     var brake = false;
     var acceleration = false;
     vehicle.streams.brake.on('data', throttle(20, function(d) {
-      if(!acceleration) {
+//      if(!acceleration) {
         if(d.data) {
           brake = true;
           drone.call('down', function(e) {
@@ -67,11 +67,11 @@ module.exports = function(server) {
         } else {
           brake = false;
         }
-      }
+     // }
     }));
 
     vehicle.streams.acceleration.on('data', throttle(20,function(d) {
-      if(!brake) {
+      //if(!brake) {
         if(d.data > 0) {
           acceleration = true;
           drone.call('take-off', function(e){
@@ -82,7 +82,7 @@ module.exports = function(server) {
         } else {
           acceleration = false;
         }
-      }
+      //}
     }));
     
     vehicle.streams.wheel.on('data', throttle(20, function(d) {
@@ -101,7 +101,7 @@ module.exports = function(server) {
       }
     }));
 
-    vehicle.streams.door.on('data', throttle(20, function(d) {
+    vehicle.streams.highbeam.on('data', throttle(20, function(d) {
       if(d.data) {
         drone.call('land', function(e){
           if(e) {
@@ -126,4 +126,7 @@ module.exports = function(server) {
       }
     }));
   });
+
+
+
 };
