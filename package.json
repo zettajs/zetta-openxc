@@ -1,6 +1,6 @@
 {
   "name": "zetta-openxc",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,6 @@
     "zetta": "^0.7.0",
     "zetta-ardrone-driver": "0.4.0",
     "throttle-event": "0.0.1"
-  }
+  },
+  "keywords": [ "zetta", "openxc", "ford" ]
 }
